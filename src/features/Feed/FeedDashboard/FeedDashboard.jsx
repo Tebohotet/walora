@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Grid, Button } from 'semantic-ui-react';
 import cuid from 'cuid';
-import EventList from '../EventList/EventList';
-import EventForm from '../EventForm/EventForm';
+import FeedList from '../FeedList/FeedList';
+import FeedForm from '../FeedForm/FeedForm';
 
-const eventsDashboard = [
+const feedsDashboard = [
   {
     id: '1',
     title: 'Trip to Tower of London',
@@ -55,16 +55,16 @@ const eventsDashboard = [
   }
 ];
 
-class EventDashboard extends Component {
+class FeedDashboard extends Component {
   state = {
-    events: eventsDashboard,
+    feeds: feedsDashboard,
     isOpen: false,
-    selectedEvent: null
+    selectedfeed: null
   };
 
   handleFormOpen = () => {
     this.setState({
-      selectedEvent: null,
+      selectedfeed: null,
       isOpen: true
     });
   };
@@ -75,67 +75,67 @@ class EventDashboard extends Component {
     });
   };
 
-  handleUpdateEvent = updatedEvent => {
+  handleUpdateFeed = updatedFeed => {
     this.setState({
-      events: this.state.events.map(event => {
-        if (event.id === updatedEvent.id) {
-          return Object.assign({}, updatedEvent);
+      feeds: this.state.feeds.map(feed => {
+        if (feed.id === updatedFeed.id) {
+          return Object.assign({}, updatedFeed);
         } else {
-          return event;
+          return feed;
         }
       }),
       isOpen: false,
-      selectedEvent: null
+      selectedFeed: null
     });
   };
 
-  handleOpenEvent = eventToOpen => () => {
+  handleOpenFeed = feedToOpen => () => {
     this.setState({
-      selectedEvent: eventToOpen,
+      selectedFeed: feedToOpen,
       isOpen: true
     });
   };
 
-  handleCreateEvent = newEvent => {
-    newEvent.id = cuid();
-    newEvent.hostPhotoURL = '/assets/user.png';
-    const updatedEvents = [...this.state.events, newEvent];
+  handleCreateFeed = newFeed => {
+    newFeed.id = cuid();
+    newFeed.hostPhotoURL = '/assets/user.png';
+    const updatedFeeds = [...this.state.feeds, newFeed];
     this.setState({
-      events: updatedEvents,
+      feeds: updatedFeeds,
       isOpen: false
     });
   };
 
-  handleDeleteEvent = eventId => () => {
-    const updatedEvents = this.state.events.filter(e => e.id !== eventId);
+  handleDeleteFeed = feedId => () => {
+    const updatedFeeds = this.state.feeds.filter(e => e.id !== feedId);
     this.setState({
-      events: updatedEvents
+      feeds: updatedFeeds
     });
   };
 
   render() {
-    const { selectedEvent } = this.state;
+    const { selectedFeed } = this.state;
     return (
       <Grid>
         <Grid.Column width={10}>
-          <EventList
-            deleteEvent={this.handleDeleteEvent}
-            events={this.state.events}
-            onEventOpen={this.handleOpenEvent}
+          <FeedList
+            deleteFeed={this.handleDeleteFeed}
+            feeds={this.state.feeds}
+            onFeedOpen={this.handleOpenFeed}
           />
         </Grid.Column>
         <Grid.Column width={6}>
           <Button
             onClick={this.handleFormOpen}
             positive
-            content='Create Event'
+            content='Create Feed'
           />
           {this.state.isOpen && (
-            <EventForm
-              updateEvent={this.handleUpdateEvent}
-              selectedEvent={selectedEvent}
+            <FeedForm
+              updateFeed={this.handleUpdateFeed}
+              selectedFeed={selectedFeed}
               handleCancel={this.handleCancel}
-              createEvent={this.handleCreateEvent}
+              createFeed={this.handleCreateFeed}
             />
           )}
         </Grid.Column>
@@ -144,4 +144,4 @@ class EventDashboard extends Component {
   }
 }
 
-export default EventDashboard;
+export default FeedDashboard;

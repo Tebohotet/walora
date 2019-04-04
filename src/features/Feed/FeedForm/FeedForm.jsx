@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
 
-const emptyEvent = {
+const emptyFeed = {
   title: '',
   date: '',
   city: '',
@@ -9,67 +9,67 @@ const emptyEvent = {
   hostedBy: ''
 };
 
-class EventForm extends Component {
+class FeedForm extends Component {
   state = {
-    event: emptyEvent
+    feed: emptyFeed
   };
 
   componentDidMount() {
-    if (this.props.selectedEvent !== null) {
+    if (this.props.selectedFeed !== null) {
       this.setState({
-        event: this.props.selectedEvent
+        feed: this.props.selectedFeed
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedEvent !== this.props.selectedEvent) {
+    if (nextProps.selectedFeed !== this.props.selectedFeed) {
       this.setState({
-        event: nextProps.selectedEvent || emptyEvent
+        feed: nextProps.selectedFeed || emptyFeed
       });
     }
   }
 
   onFormSubmit = evt => {
     evt.preventDefault();
-    if (this.state.event.id) {
-      this.props.updateEvent(this.state.event);
+    if (this.state.feed.id) {
+      this.props.updateFeed(this.state.feed);
     } else {
-      this.props.createEvent(this.state.event);
+      this.props.createFeed(this.state.feed);
     }
   };
 
   onInputChange = evt => {
-    const newEvent = this.state.event;
-    newEvent[evt.target.name] = evt.target.value;
+    const newFeed = this.state.feed;
+    newFeed[evt.target.name] = evt.target.value;
     this.setState({
-      event: newEvent
+      feed: newFeed
     });
   };
 
   render() {
     const { handleCancel } = this.props;
-    const { event } = this.state;
+    const { feed } = this.state;
     return (
       <Segment>
         <Form onSubmit={this.onFormSubmit}>
           <Form.Field>
-            <label>Event Title</label>
+            <label>Feed Title</label>
             <input
               name='title'
               onChange={this.onInputChange}
-              value={event.title}
-              placeholder='Event Title'
+              value={feed.title}
+              placeholder='Feed Title'
             />
           </Form.Field>
           <Form.Field>
-            <label>Event Date</label>
+            <label>Feed Date</label>
             <input
               name='date'
               onChange={this.onInputChange}
-              value={event.date}
+              value={feed.date}
               type='date'
-              placeholder='Event Date'
+              placeholder='Feed Date'
             />
           </Form.Field>
           <Form.Field>
@@ -77,8 +77,8 @@ class EventForm extends Component {
             <input
               name='city'
               onChange={this.onInputChange}
-              value={event.city}
-              placeholder='City event is taking place'
+              value={feed.city}
+              placeholder='City feed is taking place'
             />
           </Form.Field>
           <Form.Field>
@@ -86,8 +86,8 @@ class EventForm extends Component {
             <input
               name='venue'
               onChange={this.onInputChange}
-              value={event.venue}
-              placeholder='Enter the Venue of the event'
+              value={feed.venue}
+              placeholder='Enter the Venue of the feed'
             />
           </Form.Field>
           <Form.Field>
@@ -95,7 +95,7 @@ class EventForm extends Component {
             <input
               name='hostedBy'
               onChange={this.onInputChange}
-              value={event.hostedBy}
+              value={feed.hostedBy}
               placeholder='Enter the name of person hosting'
             />
           </Form.Field>
@@ -111,4 +111,4 @@ class EventForm extends Component {
   }
 }
 
-export default EventForm;
+export default FeedForm;
