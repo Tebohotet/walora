@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { Segment, Item, Icon, List, Button } from 'semantic-ui-react';
-import FeedListAttendee from './FeedListAttendee';
+import { Link } from 'react-router-dom';
+import EventListAttendee from './EventListAttendee';
 
-class FeedListItem extends Component {
+class EventListItem extends Component {
   render() {
-    const { feed, onFeedOpen, deleteFeed } = this.props;
+    const { event, onEventOpen, deleteEvent } = this.props;
     return (
       <Segment.Group>
         <Segment>
           <Item.Group>
             <Item>
-              <Item.Image size='tiny' circular src={feed.hostPhotoURL} />
+              <Item.Image size='tiny' circular src={event.hostPhotoURL} />
               <Item.Content>
-                <Item.Header as='a'>{feed.title}</Item.Header>
+                <Item.Header as='a'>{event.title}</Item.Header>
                 <Item.Description>
-                  Hosted by <a>{feed.hostedBy}</a>
+                  Hosted by <a>{event.hostedBy}</a>
                 </Item.Description>
               </Item.Content>
             </Item>
@@ -22,30 +23,30 @@ class FeedListItem extends Component {
         </Segment>
         <Segment>
           <span>
-            <Icon name='clock' /> {feed.date}|
-            <Icon name='marker' /> {feed.venue}
+            <Icon name='clock' /> {event.date}|
+            <Icon name='marker' /> {event.venue}
           </span>
         </Segment>
         <Segment secondary>
           <List horizontal>
-            {feed.attendees &&
-              feed.attendees.map(attendee => (
-                <feedListAttendee key={attendee.id} attendee={attendee} />
+            {event.attendees &&
+              event.attendees.map(attendee => (
+                <EventListAttendee key={attendee.id} attendee={attendee} />
               ))}
           </List>
         </Segment>
         <Segment clearing>
-          <span>{feed.description}</span>
+          <span>{event.description}</span>
           <Button
-            onClick={deleteFeed(feed.id)}
+            onClick={deleteEvent(event.id)}
             as='a'
             color='red'
             floated='right'
             content='Delete'
           />
           <Button
-            onClick={onFeedOpen(feed)}
-            as='a'
+            as={Link}
+            to={`/event/${event.id}`}
             color='teal'
             floated='right'
             content='View'
@@ -56,4 +57,4 @@ class FeedListItem extends Component {
   }
 }
 
-export default FeedListItem;
+export default EventListItem;
