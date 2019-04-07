@@ -1,64 +1,107 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Container } from 'semantic-ui-react';
-import { Route, Switch } from 'react-router-dom';
-import EventDashboard from '../../features/event/EventDashboard/EventDashboard';
-import FeedDashboard from '../../features/feeds/EventDashboard/EventDashboard';
-import NavBar from '../../features/nav/NavBar/NavBar';
-import EventForm from '../../features/event/EventForm/EventForm';
-import FeedForm from '../../features/feeds/EventForm/EventForm';
-import SettingsDashboard from '../../features/user/Settings/SettingsDashboard';
-import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
-import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard';
-import EventDetailedPage from '../../features/event/EventDetailed/EventDetailedPage';
-import FeedDetailedPage from '../../features/feeds/EventDetailed/EventDetailedPage';
-import HomePage from '../../features/home/HomePage';
-import TestComponent from '../../features/testarea/TestComponent';
-import ModalManager from '../../features/modals/ModalManager';
+import { Switch, Route } from 'react-router-dom';
+import Loadable from 'react-loadable';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <ModalManager />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-        </Switch>
+import LoadingSpinner from './LoadingComponent';
+import { AuthenticatedUser } from '../../features/auth/authWrapper';
+// import Aboutus from '../../features/aboutus/aboutus';
 
-        <Route
-          path='/(.+)'
-          render={() => (
-            <div>
-              <NavBar />
-              <Container className='main'>
-                <Switch>
-                  <Route path='/events' component={EventDashboard} />
-                  <Route path='/test' component={TestComponent} />
-                  <Route path='/event/:id' component={EventDetailedPage} />
-                  <Route path='/manage/:id' component={EventForm} />
-                  <Route path='/feeds' component={FeedDashboard} />
-                  <Route path='/feed/:id' component={FeedDetailedPage} />
-                  <Route path='/people' component={PeopleDashboard} />
-                  <Route path='/profile/:id' component={UserDetailedPage} />
-                  <Route path='/settings' component={SettingsDashboard} />
-                  <Route path='/createEvent' component={EventForm} />
-                  <Route path='/createFeed' component={FeedForm} />
-                </Switch>
-              </Container>
-            </div>
-          )}
-        />
-      </div>
-    );
-  }
-}
+const AsyncHomePage = Loadable({
+  loader: () => import('../../features/home/HomePage'),
+  loading: LoadingSpinner
+});
+
+const AsyncEventDashboard = Loadable({
+  loader: () => import('../../features/event/EventDashboard/EventDashboard'),
+  loading: LoadingSpinner
+});
+const AsyncNavBar = Loadable({
+  loader: () => import('../../features/nav/NavBar/NavBar'),
+  loading: LoadingSpinner
+});
+const AsyncCreateEventForm = Loadable({
+  loader: () => import('../../features/event/EventForm/EventForm'),
+  loading: LoadingSpinner
+});
+const AsyncManageEventForm = Loadable({
+  loader: () => import('../../features/event/EventForm/EditEventForm'),
+  loading: LoadingSpinner
+});
+const AsyncSettingsDashboard = Loadable({
+  loader: () => import('../../features/user/Settings/SettingsDashboard'),
+  loading: LoadingSpinner
+});
+const AsyncUserDetail = Loadable({
+  loader: () => import('../../features/user/UserDetailed/UserDetailedPage'),
+  loading: LoadingSpinner
+});
+const AsyncPeopleDashboard = Loadable({
+  loader: () => import('../../features/user/PeopleDashboard/PeopleDashboard'),
+  loading: LoadingSpinner
+});
+const AsyncEventDetail = Loadable({
+  loader: () => import('../../features/event/EventDetailed/EventDetailedPage'),
+  loading: LoadingSpinner
+});
+const AsyncModalManager = Loadable({
+  loader: () => import('../../features/modals/ModalManager'),
+  loading: LoadingSpinner
+});
+const AsyncAboutUs = Loadable({
+  loader: () => import('../../features/aboutus/aboutus'),
+  loading: LoadingSpinner
+});
+const AsyncNotFound = Loadable({
+  loader: () => import('./NotFound'),
+  loading: LoadingSpinner
+});
+
+const App = () => (
+  <div className='App'>
+    <AsyncModalManager />
+    <Switch>
+      <Route exact path='/' component={AsyncHomePage} />
+    </Switch>
+
+    <Route
+      path='/(.+)'
+      render={() => (
+        <div>
+          <AsyncNavBar />
+
+          <Container className='main'>
+            <Switch>
+              <Route path='/events' component={AsyncEventDashboard} />
+              <Route path='/about' component={AsyncAboutUs} />
+              <Route path='/event/:id' component={AsyncEventDetail} />
+              <Route
+                path='/manage/:id'
+                component={AuthenticatedUser(AsyncManageEventForm)}
+              />
+              <Route
+                path='/people'
+                component={AuthenticatedUser(AsyncPeopleDashboard)}
+              />
+              <Route
+                path='/profile/:id'
+                component={AuthenticatedUser(AsyncUserDetail)}
+              />
+              <Route
+                path='/settings'
+                component={AuthenticatedUser(AsyncSettingsDashboard)}
+              />
+              <Route
+                path='/createEvent'
+                component={AuthenticatedUser(AsyncCreateEventForm)}
+              />
+              <Route component={AsyncNotFound} />
+            </Switch>
+          </Container>
+        </div>
+      )}
+    />
+  </div>
+);
 
 export default App;
-
-/*Button Test
-<h1>Walora</h1>
-        <button className='ui  icon button'>
-          <i className='smile icon' />
-          CSS Button
-        </button>
-        <Button icon='smile' content='React Button' />
-*/

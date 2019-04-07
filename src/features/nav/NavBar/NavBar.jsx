@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withFirebase } from 'react-redux-firebase';
 import { Menu, Container, Button } from 'semantic-ui-react';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import SignedOutMenu from '../Menus/SignedOutMenu';
 import SignedInMenu from '../Menus/SignedInMenu';
 import { openModal } from '../../modals/modalActions';
-import { logout } from '../../auth/authActions';
 
 const actions = {
-  openModal,
-  logout
+  openModal
 };
 
 const mapState = state => ({
-  auth: state.auth
+  auth: state.firebase.auth,
+  profile: state.firebase.profile
 });
 
 class NavBar extends Component {
@@ -26,13 +26,13 @@ class NavBar extends Component {
   };
 
   handleSignOut = () => {
-    this.props.logout();
+    this.props.firebase.logout();
     this.props.history.push('/');
   };
 
   render() {
-    const { auth } = this.props;
-    const authenticated = auth.authenticated;
+    const { auth, profile } = this.props;
+    const authenticated = auth.isLoaded && !auth.isEmpty;
     return (
       <Menu inverted fixed='top'>
         <Container>
@@ -40,36 +40,28 @@ class NavBar extends Component {
             <img src='/assets/logo.png' alt='logo' />
             Walora
           </Menu.Item>
+          <Menu.Item as={NavLink} to='/about' name='About Us' />
           <Menu.Item as={NavLink} to='/events' name='Events' />
-          <Menu.Item as={NavLink} to='/feeds' name='Feeds' />
-          <Menu.Item as={NavLink} to='/test' name='Test' />
-          {authenticated && (
+          {/* {authenticated && (
             <Menu.Item as={NavLink} to='/people' name='People' />
-          )}
+          )} */}
 
           {authenticated && (
             <Menu.Item>
-              <Button
+              {/* <Button
                 as={Link}
                 to='/createEvent'
                 floated='right'
                 positive
                 inverted
                 content='Create Event'
-              />{' '}
-              <Button
-                as={Link}
-                to='/createFeed'
-                floated='right'
-                positive
-                inverted
-                content='Create Feed'
-              />
+              /> */}
             </Menu.Item>
           )}
           {authenticated ? (
             <SignedInMenu
-              currentUser={auth.currentUser}
+              auth={auth}
+              profile={profile}
               signOut={this.handleSignOut}
             />
           ) : (
@@ -85,8 +77,10 @@ class NavBar extends Component {
 }
 
 export default withRouter(
-  connect(
-    mapState,
-    actions
-  )(NavBar)
+  withFirebase(
+    connect(
+      mapState,
+      actions
+    )(NavBar)
+  )
 );

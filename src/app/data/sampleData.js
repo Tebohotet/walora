@@ -1,4 +1,5 @@
-const sampleData = {
+// Sample event data to start with
+export default {
   events: [
     {
       id: '1',
@@ -31,7 +32,7 @@ const sampleData = {
     {
       id: '2',
       title: 'Trip to Punch and Judy Pub',
-      date: '2018-03-18T14:00:00',
+      date: '2018-03-18T14:30:00',
       category: 'drinks',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
@@ -59,4 +60,22 @@ const sampleData = {
   ]
 };
 
-export default sampleData;
+// Event categories
+export const category = [
+  { key: 'drinks', text: 'Drinks', value: 'drinks' },
+  { key: 'culture', text: 'Culture', value: 'culture' },
+  { key: 'film', text: 'Film', value: 'film' },
+  { key: 'food', text: 'Food', value: 'food' },
+  { key: 'music', text: 'Music', value: 'music' },
+  { key: 'travel', text: 'Travel', value: 'travel' }
+];
+
+// User interests
+export const interests = [
+  { key: 'drinks', text: 'Drinks', value: 'drinks' },
+  { key: 'culture', text: 'Culture', value: 'culture' },
+  { key: 'film', text: 'Film', value: 'film' },
+  { key: 'food', text: 'Food', value: 'food' },
+  { key: 'music', text: 'Music', value: 'music' },
+  { key: 'travel', text: 'Travel', value: 'travel' }
+];
