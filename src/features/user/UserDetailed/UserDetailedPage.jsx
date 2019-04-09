@@ -8,9 +8,15 @@ import UserDetailedDescription from './UserDetailedDescription';
 import UserDetailedPhotos from './UserDetailedPhotos';
 import UserDetailedSidebar from './UserDetailedSidebar';
 import UserDetailedEvents from './UserDetailedEvents';
+import UserDetailedFeeds from './UserDetailedFeeds';
 import { userDetailedQuery } from '../userQueries';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import { getUserEvents, followUser, unfollowUser } from '../userActions';
+import {
+  getUserFeeds,
+  getUserEvents,
+  followUser,
+  unfollowUser
+} from '../userActions';
 
 const mapState = (state, ownProps) => {
   let userUid = null;
@@ -37,6 +43,7 @@ const mapState = (state, ownProps) => {
 };
 
 const actions = {
+  getUserFeeds,
   getUserEvents,
   followUser,
   unfollowUser
@@ -46,6 +53,8 @@ class UserDetailedPage extends Component {
   async componentDidMount() {
     let events = await this.props.getUserEvents(this.props.userUid);
     console.log(events);
+    let feeds = await this.props.getUserFeeds(this.props.userUid);
+    console.log(feeds);
   }
 
   changeTab = (e, data) => {
@@ -61,6 +70,8 @@ class UserDetailedPage extends Component {
       requesting,
       events,
       eventsLoading,
+      feeds,
+      feedsLoading,
       followUser,
       following,
       unfollowUser
@@ -86,6 +97,11 @@ class UserDetailedPage extends Component {
           changeTab={this.changeTab}
           events={events}
           eventsLoading={eventsLoading}
+        />
+        <UserDetailedFeeds
+          changeTab={this.changeTab}
+          feeds={feeds}
+          feedsLoading={feedsLoading}
         />
       </Grid>
     );

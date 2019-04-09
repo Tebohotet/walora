@@ -5,6 +5,7 @@ import Loadable from 'react-loadable';
 
 import LoadingSpinner from './LoadingComponent';
 import { AuthenticatedUser } from '../../features/auth/authWrapper';
+import { AuthenticatedUserFeed } from '../../features/auth/authWrapper';
 // import Aboutus from '../../features/aboutus/aboutus';
 
 const AsyncHomePage = Loadable({
@@ -16,8 +17,16 @@ const AsyncEventDashboard = Loadable({
   loader: () => import('../../features/event/EventDashboard/EventDashboard'),
   loading: LoadingSpinner
 });
+const AsyncFeedDashboard = Loadable({
+  loader: () => import('../../features/feed/FeedDashboard/index'),
+  loading: LoadingSpinner
+});
 const AsyncNavBar = Loadable({
   loader: () => import('../../features/nav/NavBar/NavBar'),
+  loading: LoadingSpinner
+});
+const AsyncFooter = Loadable({
+  loader: () => import('../../features/nav/Footer'),
   loading: LoadingSpinner
 });
 const AsyncCreateEventForm = Loadable({
@@ -26,6 +35,14 @@ const AsyncCreateEventForm = Loadable({
 });
 const AsyncManageEventForm = Loadable({
   loader: () => import('../../features/event/EventForm/EditEventForm'),
+  loading: LoadingSpinner
+});
+const AsyncCreateFeedForm = Loadable({
+  loader: () => import('../../features/feed/FeedForm/CreateFeedForm'),
+  loading: LoadingSpinner
+});
+const AsyncManageFeedForm = Loadable({
+  loader: () => import('../../features/feed/FeedForm/ManageFeedForm'),
   loading: LoadingSpinner
 });
 const AsyncSettingsDashboard = Loadable({
@@ -42,6 +59,10 @@ const AsyncPeopleDashboard = Loadable({
 });
 const AsyncEventDetail = Loadable({
   loader: () => import('../../features/event/EventDetailed/EventDetailedPage'),
+  loading: LoadingSpinner
+});
+const AsyncFeedDetail = Loadable({
+  loader: () => import('../../features/feed/FeedDetail/index'),
   loading: LoadingSpinner
 });
 const AsyncModalManager = Loadable({
@@ -69,15 +90,21 @@ const App = () => (
       render={() => (
         <div>
           <AsyncNavBar />
-
           <Container className='main'>
             <Switch>
               <Route path='/events' component={AsyncEventDashboard} />
+              <Route path='/feeds' component={AsyncFeedDashboard} />
               <Route path='/about' component={AsyncAboutUs} />
               <Route path='/event/:id' component={AsyncEventDetail} />
+              <Route path='/feed/:id' component={AsyncFeedDetail} />
+
               <Route
                 path='/manage/:id'
                 component={AuthenticatedUser(AsyncManageEventForm)}
+              />
+              <Route
+                path='/manageFeed/:id'
+                component={AuthenticatedUser(AsyncManageFeedForm)}
               />
               <Route
                 path='/people'
@@ -95,9 +122,15 @@ const App = () => (
                 path='/createEvent'
                 component={AuthenticatedUser(AsyncCreateEventForm)}
               />
+              <Route
+                path='/createFeed'
+                component={AuthenticatedUserFeed(AsyncCreateFeedForm)}
+              />
+
               <Route component={AsyncNotFound} />
             </Switch>
-          </Container>
+          </Container>{' '}
+          <AsyncFooter />
         </div>
       )}
     />

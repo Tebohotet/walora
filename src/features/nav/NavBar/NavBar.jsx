@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withFirebase } from 'react-redux-firebase';
-import { Menu, Container, Button } from 'semantic-ui-react';
+import { Menu, Container } from 'semantic-ui-react';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import SignedOutMenu from '../Menus/SignedOutMenu';
 import SignedInMenu from '../Menus/SignedInMenu';
@@ -42,6 +42,7 @@ class NavBar extends Component {
           </Menu.Item>
           <Menu.Item as={NavLink} to='/about' name='About Us' />
           <Menu.Item as={NavLink} to='/events' name='Events' />
+          <Menu.Item as={NavLink} to='/feeds' name='Feeds' />
           {/* {authenticated && (
             <Menu.Item as={NavLink} to='/people' name='People' />
           )} */}

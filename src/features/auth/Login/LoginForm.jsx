@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Segment, Button, Divider } from 'semantic-ui-react';
-import { reduxForm, Field } from 'redux-form';
+import { Form, Segment } from 'semantic-ui-react';
+import { reduxForm } from 'redux-form';
 
-import TextInput from '../../../app/common/form/TextInput';
+// import TextInput from '../../../app/common/form/TextInput';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { loginUser, socialLogin } from '../authActions';
-import renderError from '../../../app/common/util/renderError';
+// import renderError from '../../../app/common/util/renderError';
 
 const LoginForm = ({ loginUser, socialLogin, handleSubmit, error }) => {
   return (

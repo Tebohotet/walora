@@ -5,6 +5,7 @@ import { firebaseReducer } from 'react-redux-firebase';
 import { firestoreReducer } from 'redux-firestore';
 import testReducer from '../../features/testarea/testReducer';
 import eventReducer from '../../features/event/eventReducer';
+import feedReducer from '../../features/feed/feedReducer';
 import modalsReducer from '../../features/modals/modalReducer';
 import authReducer from '../../features/auth/authReducer';
 import asyncReducer from '../../features/async/asyncReducer';
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   firestore: firestoreReducer,
   test: testReducer,
   events: eventReducer,
+  feeds: feedReducer,
   form: FormReducer,
   modals: modalsReducer,
   auth: authReducer,

@@ -6,8 +6,8 @@ import {
 } from 'revalidate';
 
 export const validate = combineValidators({
-  title: isRequired({ message: 'The event title is required' }),
-  category: isRequired({ message: 'Please provide an event category ' }),
+  title: isRequired({ message: 'The  title is required' }),
+  category: isRequired({ message: 'Please provide category ' }),
   description: composeValidators(
     isRequired({ message: 'Please enter a description' }),
     hasLengthGreaterThan(4)({

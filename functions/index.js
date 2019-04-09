@@ -15,6 +15,19 @@ const newActivity = (type, event, id) => {
   };
 };
 
+const newFeedActivity = (type, feed, id) => {
+  return {
+    type: type,
+    feedDate: feed.date,
+    hostedBy: feed.hostedBy,
+    title: feed.title,
+    photoURL: feed.hostPhotoURL,
+    timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    hostUid: feed.hostUid,
+    feedId: id
+  };
+};
+
 exports.createActivity = functions.firestore
   .document('events/{eventId}')
   .onCreate(event => {
@@ -35,6 +48,29 @@ exports.createActivity = functions.firestore
       })
       .catch(err => {
         return console.log('Error adding activity', err);
+      });
+  });
+
+exports.createFeed = functions.firestore
+  .document('feeds/{feedId}')
+  .onCreate(feed => {
+    let newFeed = feed.data();
+
+    console.log(newFeed);
+
+    const feedactivity = newFeedActivity('newFeed', newFeed, feed.id);
+
+    console.log(feedactivity);
+
+    return admin
+      .firestore()
+      .collection('feedactivity')
+      .add(feedactivity)
+      .then(docRef => {
+        return console.log('FeedActivity created with id: ', docRef.id);
+      })
+      .catch(err => {
+        return console.log('Error adding feedactivity', err);
       });
   });
 
@@ -72,6 +108,43 @@ exports.cancelActivity = functions.firestore
       })
       .catch(err => {
         return console.log('Error adding activity', err);
+      });
+  });
+
+exports.cancelFeedActivity = functions.firestore
+  .document('feeds/{feedId}')
+  .onUpdate((feed, context) => {
+    let updatedFeed = feed.after.data();
+    let previousFeedData = feed.before.data();
+    console.log({ feed });
+    console.log({ context });
+    console.log({ updatedFeed });
+    console.log({ previousFeedData });
+
+    if (
+      !updatedFeed.cancelled ||
+      updatedFeed.cancelled === previousFeedData.cancelled
+    ) {
+      return false;
+    }
+
+    const feedactivity = newFeedActivity(
+      'cancelledFeed',
+      updatedFeed,
+      context.params.feedId
+    );
+
+    console.log({ feedactivity });
+
+    return admin
+      .firestore()
+      .collection('feedactivity')
+      .add(feedactivity)
+      .then(docRef => {
+        return console.log('FeedActivity created with id: ', docRef.id);
+      })
+      .catch(err => {
+        return console.log('Error adding feedactivity', err);
       });
   });
 

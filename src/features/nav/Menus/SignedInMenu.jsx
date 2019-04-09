@@ -13,7 +13,13 @@ const LoggedInMenu = ({ signOut, profile, auth }) => (
           text='Create Event'
           icon='plus'
         />
-        <Dropdown.Item as={Link} to='/people' text='My People' icon='plus' />
+        <Dropdown.Item
+          as={Link}
+          to='/createFeed'
+          text='Post Feed'
+          icon='pencil'
+        />
+        <Dropdown.Item as={Link} to='/people' text='My People' icon='male' />
 
         {/* <Dropdown.Item text='My Events' icon='calendar' />
         <Dropdown.Item text='My Network' icon='users' /> */}
