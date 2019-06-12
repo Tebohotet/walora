@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Segment, Header, Card } from 'semantic-ui-react';
+import { Grid, Segment, Header, Card, Icon, Image } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -31,6 +31,11 @@ const mapState = state => ({
 const PeopleDashboard = ({ followings, followers }) => {
   return (
     <Grid>
+      <Header as='h2' icon textAlign='center'>
+        <Icon name='users' circular />
+        <Header.Content>Friends</Header.Content>
+      </Header>
+
       <Grid.Column width={16}>
         <Segment>
           <Header dividing content='People following me' />

@@ -3,12 +3,7 @@ import { Card, Grid, Header, Image, Segment, Tab } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
 
-const panes = [
-  { menuItem: 'All Feeds', pane: { key: 'allFeeds' } },
-  { menuItem: 'Past Feeds', pane: { key: 'pastFeeds' } },
-  { menuItem: 'Future Feeds', pane: { key: 'futureFeeds' } },
-  { menuItem: 'Hosting', pane: { key: 'hosted' } }
-];
+const panes = [{ menuItem: 'All Feeds', pane: { key: 'allFeeds' } }];
 
 const UserDeteiledFeeds = ({ feeds, feedsLoading, changeTab }) => {
   return (

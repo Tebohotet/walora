@@ -6,6 +6,7 @@ import TextInput from '../../../app/common/form/TextInput';
 import TextArea from '../../../app/common/form/TextArea';
 import PlaceInput from '../../../app/common/form/PlaceInput';
 import SelectInput from '../../../app/common/form/SelectInput';
+import SettingsHeader from './AccountHeader';
 
 const interests = [
   { key: 'drinks', text: 'Drinks', value: 'drinks' },
@@ -19,6 +20,8 @@ const interests = [
 const AboutPage = ({ pristine, submitting, handleSubmit, updateProfile }) => {
   return (
     <Segment>
+      {' '}
+      <SettingsHeader />
       <Header dividing size='large' content='About Me' />
       <p>Complete your profile to get the most out of this site</p>
       <Form onSubmit={handleSubmit(updateProfile)}>

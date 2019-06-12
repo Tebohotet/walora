@@ -6,12 +6,14 @@ import DateInput from '../../../app/common/form/DateInput';
 import PlaceInput from '../../../app/common/form/PlaceInput';
 import TextInput from '../../../app/common/form/TextInput';
 import RadioInput from '../../../app/common/form/RadioInput';
+import SettingsHeader from './AccountHeader';
 
 class BasicPage extends Component {
   render() {
     const { pristine, submitting, handleSubmit, updateProfile } = this.props;
     return (
       <Segment>
+        <SettingsHeader />
         <Header dividing size='large' content='Basics' />
         <Form onSubmit={handleSubmit(updateProfile)}>
           <Field

@@ -6,6 +6,7 @@ import Loadable from 'react-loadable';
 import LoadingSpinner from './LoadingComponent';
 import { AuthenticatedUser } from '../../features/auth/authWrapper';
 import { AuthenticatedUserFeed } from '../../features/auth/authWrapper';
+
 // import Aboutus from '../../features/aboutus/aboutus';
 
 const AsyncHomePage = Loadable({
@@ -73,6 +74,10 @@ const AsyncAboutUs = Loadable({
   loader: () => import('../../features/aboutus/aboutus'),
   loading: LoadingSpinner
 });
+const AsyncTest = Loadable({
+  loader: () => import('./test'),
+  loading: LoadingSpinner
+});
 const AsyncNotFound = Loadable({
   loader: () => import('./NotFound'),
   loading: LoadingSpinner
@@ -95,6 +100,7 @@ const App = () => (
               <Route path='/events' component={AsyncEventDashboard} />
               <Route path='/feeds' component={AsyncFeedDashboard} />
               <Route path='/about' component={AsyncAboutUs} />
+              <Route path='/test' component={AsyncTest} />
               <Route path='/event/:id' component={AsyncEventDetail} />
               <Route path='/feed/:id' component={AsyncFeedDetail} />
 

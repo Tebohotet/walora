@@ -17,6 +17,7 @@ class about extends Component {
         </Parallax>
         <div className='grey lighten-3 center'>
           <h2 className='grey-text text-darken-3 center'>ABOUT US</h2>
+          <img src='/assets/logo.png' width='100' alt='logo' />{' '}
           <h4 className=' pink-text text-darken-3 center'>Who We Are</h4>
           <blockquote>
             Walora - Igniting Dreams began as a movement which was started by
@@ -49,6 +50,7 @@ class about extends Component {
 
         <div className='grey lighten-3'>
           <h4 className='pink-text text-darken-3 center'>Why Choose Us?</h4>
+          <img src='/assets/logo.png' width='100' alt='logo' />{' '}
           <blockquote>
             As a registered non-profit organisation, we collaborate with various
             individuals, other organisations and stakeholders who seek to
@@ -78,6 +80,7 @@ class about extends Component {
         </Parallax>
         <div className='grey lighten-3'>
           <h4 className='pink-text text-darken-3 center'>Vision</h4>
+          <img src='/assets/logo.png' width='100' alt='logo' />{' '}
           <blockquote>
             The movement aims to shake the boundaries of social norm, eradicate
             use of drugs in our communities and champion spirit of Ubuntu in a
@@ -86,6 +89,28 @@ class about extends Component {
             South Africa to use that likes of Mandela, Biko, Tambo and many of
             our struggles legends championed. Our vision is to make an impact in
             the world by igniting one dream at a time.
+          </blockquote>
+        </div>
+        <Parallax
+          bgImage={require('./showcase.jpg')}
+          bgImageAlt='the cat'
+          strength={500}
+        >
+          {/*text here */}
+          <div style={{ height: '320px' }} />
+        </Parallax>
+        <div className='grey lighten-3'>
+          <h4 className='pink-text text-darken-3 center'>
+            As a non profit we rely soley on generous donations.{' '}
+          </h4>
+          <img src='/assets/logo.png' width='100' alt='logo' />{' '}
+          <blockquote>
+            Please make a contribution to the following bank details: <br />
+            • Walora Savings Deposit
+            <br />
+            • Account Acc No: 2012696643 <br />
+            • Branch code: 0171
+            <br />• Nedbank
           </blockquote>
         </div>
         <Parallax

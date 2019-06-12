@@ -16,6 +16,7 @@ import {
   composeValidators
 } from 'revalidate';
 import TextInput from '../../../app/common/form/TextInput';
+import SettingsHeader from './AccountHeader';
 
 const validate = combineValidators({
   newPassword1: isRequired({ message: 'Please enter a password' }),
@@ -35,6 +36,7 @@ const AccountPage = ({
 }) => {
   return (
     <Segment>
+      <SettingsHeader />
       <Header dividing size='large' content='Account' />
       {providerId && providerId === 'password' && (
         <div>
